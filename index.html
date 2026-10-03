@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BFF — Build For a Friend</title>
+  <meta name="description" content="Pick one real person and build something for them. It doesn't have to be big. It has to matter to them.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation / Banner -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <span class="logo-emoji">💛</span>
+        <span class="logo-text"><strong>BFF</strong>: Build For a Friend</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#ideas">Starter Ideas</a>
+        <a href="#create">Create a Project</a>
+        <a href="#my-projects">My Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero / Manifesto -->
+    <section class="hero-box">
+      <div class="hero-tag">A small project challenge</div>
+      <h1 class="main-quote">
+        "Pick one real person and build something for them.<br>
+        <span class="highlight">It doesn't have to be big. It has to matter to them.</span>"
+      </h1>
+      <p class="hero-intro">
+        Most tech projects try to get millions of users. This one is different: build a simple tool for 
+        <strong>one real person</strong> in your life — your roommate, your grandpa, your friend who is learning a language, or your mom.
+      </p>
+      <div class="hero-buttons">
+        <a href="#create" class="btn btn-primary">Start a project for someone</a>
+        <a href="#ideas" class="btn btn-secondary">See 3 starter ideas</a>
+      </div>
+    </section>
+
+    <!-- 3 Starter Ideas Section -->
+    <section class="section" id="ideas">
+      <div class="section-title-box">
+        <h2>A Few Ideas To Get You Going</h2>
+        <p>Here are three small projects built for one specific person. Try the interactive demos below!</p>
+      </div>
+
+      <div class="ideas-tabs">
+        <button class="tab-button active" onclick="showTab('tab-allergies')">🥗 1. Roommate's Allergies</button>
+        <button class="tab-button" onclick="showTab('tab-language')">🗣️ 2. Practice Partner</button>
+        <button class="tab-button" onclick="showTab('tab-grandpa')">🎙️ 3. Grandpa's Voice Memos</button>
+      </div>
+
+      <!-- Idea 1: Roommate Allergy Meal Planner -->
+      <div class="idea-panel active" id="tab-allergies">
+        <div class="card-header-info">
+          <h3>🥗 Idea 1: A meal planner that knows your roommate's allergies</h3>
+          <p class="person-tag">Built for: <strong>Alex (my roommate)</strong> — Alex is allergic to peanuts and sensitive to gluten.</p>
+        </div>
+
+        <div class="demo-box">
+          <div class="demo-controls">
+            <strong>Check Alex's Allergies:</strong>
+            <div class="checkbox-group">
+              <label><input type="checkbox" id="allergy-peanuts" checked onchange="filterMeals()"> 🥜 Peanuts</label>
+              <label><input type="checkbox" id="allergy-gluten" checked onchange="filterMeals()"> 🌾 Gluten</label>
+              <label><input type="checkbox" id="allergy-dairy" onchange="filterMeals()"> 🧀 Dairy</label>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="pickRandomSafeMeal()">🎲 Surprise Alex with a dinner</button>
+          </div>
+
+          <div id="meal-results" class="meal-results-list">
+            <!-- Filled by JavaScript -->
+          </div>
+          <div id="meal-message" class="info-note"></div>
+        </div>
+      </div>
+
+      <!-- Idea 2: Patient Practice Partner -->
+      <div class="idea-panel" id="tab-language" style="display: none;">
+        <div class="card-header-info">
+          <h3>🗣️ Idea 2: A patient practice partner for a friend learning a new language</h3>
+          <p class="person-tag">Built for: <strong>Mateo (learning Spanish)</strong> — He gets nervous ordering coffee in Madrid.</p>
+        </div>
+
+        <div class="demo-box">
+          <div class="chat-instruction">
+            <strong>Practice scenario: Ordering a drink at a café in Spain</strong>
+          </div>
+
+          <div class="simple-chat" id="chat-box">
+            <div class="chat-msg bot">
+              <strong>Café Bot ☕:</strong> ¡Hola! ¿Qué te pongo hoy, amigo? 
+              <span class="translation">(Hello! What can I get you today, friend?)</span>
+            </div>
+          </div>
+
+          <div class="chat-options">
+            <p>Pick a sentence for Mateo to say:</p>
+            <div class="option-buttons">
+              <button class="btn btn-outline" onclick="sendMateoMessage('Un café con leche, por favor.', 'A coffee with milk, please.')">
+                "Un café con leche, por favor."
+              </button>
+              <button class="btn btn-outline" onclick="sendMateoMessage('¿Tienen leche de avena?', 'Do you have oat milk?')">
+                "¿Tienen leche de avena?"
+              </button>
+              <button class="btn btn-outline" onclick="sendMateoMessage('¿Cuánto cuesta?', 'How much is it?')">
+                "¿Cuánto cuesta?"
+              </button>
+            </div>
+          </div>
+
+          <form class="custom-chat-form" onsubmit="handleCustomChat(event)">
+            <input type="text" id="custom-message" placeholder="Or type what Mateo says in Spanish..." required>
+            <button type="submit" class="btn btn-primary btn-sm">Send</button>
+          </form>
+
+          <div id="partner-encouragement" class="partner-encouragement">
+            💡 <em>Tip for Mateo: Don't worry about making mistakes! The barista will always appreciate you trying.</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 3: Grandpa's Voice Memo Recipe Book -->
+      <div class="idea-panel" id="tab-grandpa" style="display: none;">
+        <div class="card-header-info">
+          <h3>🎙️ Idea 3: A tool that turns your grandpa's voice memos into a family recipe book</h3>
+          <p class="person-tag">Built for: <strong>Grandpa Joe (84 years old)</strong> — He leaves long WhatsApp audio notes with secret cooking tips.</p>
+        </div>
+
+        <div class="demo-box">
+          <div class="audio-memo-card">
+            <div class="memo-top">
+              <span class="audio-icon">📼</span>
+              <div>
+                <strong>Voice Note: Grandpa_Sunday_Sauce.m4a</strong>
+                <div class="audio-time">Length: 0:24</div>
+              </div>
+              <button class="btn btn-primary btn-sm" id="btn-play-memo" onclick="playVoiceMemo()">
+                ▶️ Play Grandpa's Memo
+              </button>
+            </div>
+
+            <div class="memo-transcript" id="memo-transcript-box">
+              <p><em>Click "Play Grandpa's Memo" to read the notes from his voice message...</em></p>
+            </div>
+          </div>
+
+          <!-- Generated recipe card -->
+          <div class="recipe-card-box">
+            <h4>📖 Family Recipe Card: Grandpa Joe's Sunday Sauce</h4>
+            <div class="recipe-details">
+              <p><strong>Grandpa's Secret Rules:</strong></p>
+              <ul>
+                <li>Cook diced yellow onions on lowest heat for 20 minutes (don't rush!).</li>
+                <li>Throw the hard Parmesan cheese rind right into the simmering pot.</li>
+                <li>Dip a piece of sourdough bread to taste-test before serving.</li>
+              </ul>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="copyRecipeCard()">📋 Copy Recipe</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Create a Project Section -->
+    <section class="section" id="create">
+      <div class="section-title-box">
+        <h2>Start a Project for Someone</h2>
+        <p>Fill out this simple form to plan something helpful for a real person in your life.</p>
+      </div>
+
+      <div class="create-container">
+        <form class="simple-form" id="create-project-form" onsubmit="handleCreateProject(event)">
+          <div class="form-row">
+            <label for="input-person">Who are you building this for?</label>
+            <input type="text" id="input-person" placeholder="e.g. My roommate Sarah, Grandpa Joe, My friend Priya" required>
+          </div>
+
+          <div class="form-row">
+            <label for="input-problem">What's their struggle, quirk, or something they need help with?</label>
+            <textarea id="input-problem" rows="3" placeholder="e.g. She always forgets to water her plants; He is nervous speaking French before a trip; We waste 30 minutes every night picking a movie..." required></textarea>
+          </div>
+
+          <div class="form-row">
+            <label for="input-solution">What simple thing could you build for them?</label>
+            <input type="text" id="input-solution" placeholder="e.g. A 1-button plant hydration tracker, a 3-choice movie decider" required>
+          </div>
+
+          <div class="form-row">
+            <label for="input-touch">A personal inside joke or sweet detail (optional):</label>
+            <input type="text" id="input-touch" placeholder="e.g. Plays her cat's meow sound when all plants are watered">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Project Idea 💛</button>
+            <button type="button" class="btn btn-secondary" onclick="fillExampleProject()">Fill with an example</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Saved Projects Section -->
+    <section class="section" id="my-projects">
+      <div class="section-title-box">
+        <h2>My BFF Projects (<span id="project-count">0</span>)</h2>
+        <p>Projects you are making for people who matter to you.</p>
+      </div>
+
+      <div id="projects-list" class="projects-list">
+        <!-- Injected by JavaScript -->
+      </div>
+    </section>
+
+    <!-- The 3 Rules -->
+    <section class="manifesto-box">
+      <h3>The 3 Golden Rules</h3>
+      <div class="rules-row">
+        <div class="rule-item">
+          <strong>1. Audience of One</strong>
+          <p>If it solves a problem for one person you care about, it is 100% worth building.</p>
+        </div>
+        <div class="rule-item">
+          <strong>2. Keep It Small</strong>
+          <p>You can build it in an afternoon. A simple list or button is better than a big complex app.</p>
+        </div>
+        <div class="rule-item">
+          <strong>3. Give It Like a Gift</strong>
+          <p>Send the link in a text message. Seeing their smile is the best part of coding.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p><strong>BFF: Build For a Friend</strong> — Made with HTML, CSS & JavaScript.</p>
+      <p class="subtext">"Pick one real person and build something for them. It doesn't have to be big. It has to matter to them."</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
